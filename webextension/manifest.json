@@ -1,8 +1,8 @@
 {
   "manifest_version": 2,
-  "name": "LanguageTool - Grammar and Style Checker",
-  "short_name": "LanguageTool",
-  "version": "1.0.14",
+  "name": "Amebis Besana. Avtomatska lektorica.",
+  "short_name": "Besana",
+  "version": "4.15",
   "description": "__MSG_appDesc__",
   "default_locale": "en",
   
@@ -10,8 +10,8 @@
              "48": "images/icon48.png",
              "64": "images/icon64.png",
              "128": "images/icon128.png" },
-  "author": "Daniel Naber",
-  "homepage_url": "https://languagetool.org",
+  "author": "Amebis, d. o. o., Kamnik",
+  "homepage_url": "https://besana.amebis.si/",
   "offline_enabled": false,
 
   "browser_action": {
