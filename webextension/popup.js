@@ -148,7 +148,6 @@ function renderMatchesToHtml(resultJson, response, tabs, callback) {
         translatedLanguage = language;
     }
     var html = '<a id="closeLink" href="#"></a>';
-    html += DOMPurify.sanitize(getLanguageSelector(languageCode));
     html += '<div id="outerShortcutHint"></div>';
     html += "<hr>";
     let matches = data.matches;
@@ -331,36 +330,6 @@ function showShortcutHint(commands) {
             });
         });
     }
-}
-
-function getLanguageSelector(languageCode) {
-    // It might be better to get the languages from the API (but not for every check call):
-    let languages = [
-        "ast-ES", "be-BY", "br-FR", "ca-ES", "ca-ES-valencia", "zh-CN", "da-DK", "nl",
-        "en-US", "en-GB", "en-AU", "en-CA", "en-NZ", "en-ZA", "eo", "fr", "gl-ES",
-        "de-DE", "de-AT", "de-CH", "el-GR", "is-IS", "it", "ja-JP", "km-KH", "lt-LT", "ml-IN",
-        "fa", "pl-PL", "pt-PT", "pt-BR", "ro-RO", "ru-RU", "sk-SK",
-        "sl-SI", "es", "sv", "tl-PH", "ta-IN", "uk-UA"
-    ];
-    var html = "<div id='top'>";
-    html += chrome.i18n.getMessage("language");
-    html += "&nbsp;<select id='language'>";
-    for (var l in languages) {
-        let langCode = languages[l];
-        let langCodeForTrans = languages[l].replace(/-/g, "_");
-        let selected = languageCode == langCode ? "selected" : "";
-        var translatedLang = chrome.i18n.getMessage(langCodeForTrans);
-        if (!translatedLang) {
-            translatedLang = chrome.i18n.getMessage(langCodeForTrans.replace(/_.*/, ""));
-        }
-        if (!translatedLang) {
-            translatedLang = Tools.getLangName(langCode);
-        }
-        html += "<option " + selected + " value='" + langCode + "'>" + translatedLang + "</option>";
-    }
-    html += "</select>";
-    html += "</div>";
-    return html;
 }
 
 // call only with sanitized context
