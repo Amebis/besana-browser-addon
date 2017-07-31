@@ -30,11 +30,6 @@ function saveOptions() {
         Tools.getStorage().set({
             apiServerUrl: url,
             ignoreQuotedLines: document.getElementById('ignoreQuotedLines').checked,
-            motherTongue: document.getElementById('motherTongue').value,
-            enVariant: document.getElementById('variant-en').value,
-            deVariant: document.getElementById('variant-de').value,
-            ptVariant: document.getElementById('variant-pt').value,
-            caVariant: document.getElementById('variant-ca').value,
             dictionary: document.getElementById('dictionary').value.split("\n").filter(a => a.length > 0)
         }, function() {
             close();
@@ -47,31 +42,14 @@ function restoreOptions() {
     document.getElementById('defaultServerLink').textContent = chrome.i18n.getMessage("defaultServerLink");
     document.getElementById('save').textContent = chrome.i18n.getMessage("save");
     document.getElementById('ignoreQuotedLinesDesc').innerHTML = chrome.i18n.getMessage("ignoreQuotedLines");
-    document.getElementById('motherTongueDesc').textContent = chrome.i18n.getMessage("motherTongueDesc");
-    document.getElementById('motherTongueExpl').textContent = chrome.i18n.getMessage("motherTongueExpl");
-    document.getElementById('variant-en-desc').textContent = chrome.i18n.getMessage("variantEnDesc");
-    document.getElementById('variant-de-desc').textContent = chrome.i18n.getMessage("variantDeDesc");
-    document.getElementById('variant-pt-desc').textContent = chrome.i18n.getMessage("variantPtDesc");
-    document.getElementById('variant-ca-desc').textContent = chrome.i18n.getMessage("variantCaDesc");
     document.getElementById('dictionaryDesc').textContent = chrome.i18n.getMessage("dictionaryDesc");
     Tools.getStorage().get({
         apiServerUrl: defaultServerUrl,
         ignoreQuotedLines: true,
-        motherTongue: "",
-        enVariant: "en-US",
-        deVariant: "de-DE",
-        ptVariant: "pt-PT",
-        caVariant: "ca-ES",
         dictionary: []
     }, function(items) {
         document.getElementById('apiServerUrl').value = items.apiServerUrl;
         document.getElementById('ignoreQuotedLines').checked = items.ignoreQuotedLines;
-        document.getElementById('motherTongue').value = items.motherTongue;
-        document.getElementById('variant-en').value = items.enVariant;
-        document.getElementById('variant-de').value = items.deVariant;
-        document.getElementById('variant-pt').value = items.ptVariant;
-        document.getElementById('variant-ca').value = items.caVariant;
-        //document.getElementById('variant-ca-desc').value = items.caVariant;
         let dict = items.dictionary.sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()));
         document.getElementById('dictionary').value = dict.join("\n") + "\n";
         showPrivacyLink();
