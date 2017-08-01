@@ -147,7 +147,7 @@ function renderMatchesToHtml(resultJson, response, tabs, callback) {
     if (!translatedLanguage) {
         translatedLanguage = language;
     }
-    var html = '<a id="closeLink" href="#"></a>';
+    var html = '<div id="closeLinkWrapper"><a id="closeLink" href="#"></a></div>';
     html += '<div id="outerShortcutHint"></div>';
     html += "<hr>";
     let matches = data.matches;
