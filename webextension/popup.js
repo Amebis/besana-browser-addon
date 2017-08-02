@@ -376,10 +376,6 @@ function renderReplacements(contextSanitized, m, createLinks) {
 }
 
 function addLinkListeners(response, tabs) {
-    document.getElementById("language").addEventListener("change", function() {
-        manuallySelectedLanguage = document.getElementById("language").value;
-        doCheck(tabs);
-    });
     let closeLink = document.getElementById("closeLink");
     closeLink.addEventListener("click", function() {
         self.close();
