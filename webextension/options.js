@@ -61,7 +61,7 @@ document.getElementById('apiServerUrl').addEventListener('keyup', showPrivacyLin
 
 function showPrivacyLink() {
     if (document.getElementById('apiServerUrl').value == defaultServerUrl) {
-        document.getElementById('privacyPolicy').innerHTML = "<a href='https://languagetool.org/privacy/'>Privacy Policy</a>";
+        document.getElementById('privacyPolicy').innerHTML = "<a href='https://www.amebis.si/datoteke/SplosniPogoji_Narocnina_3.1-sl.pdf'>Privacy Policy</a>";
     } else {
         document.getElementById('privacyPolicy').innerHTML = "";
     }
