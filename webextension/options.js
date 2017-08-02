@@ -28,9 +28,7 @@ function saveOptions() {
     } else {
         status.textContent = '';
         Tools.getStorage().set({
-            apiServerUrl: url,
-            ignoreQuotedLines: document.getElementById('ignoreQuotedLines').checked,
-            dictionary: document.getElementById('dictionary').value.split("\n").filter(a => a.length > 0)
+            apiServerUrl: url
         }, function() {
             close();
         });
@@ -41,17 +39,10 @@ function restoreOptions() {
     document.getElementById('serverText').textContent = chrome.i18n.getMessage("serverText");
     document.getElementById('defaultServerLink').textContent = chrome.i18n.getMessage("defaultServerLink");
     document.getElementById('save').textContent = chrome.i18n.getMessage("save");
-    document.getElementById('ignoreQuotedLinesDesc').innerHTML = chrome.i18n.getMessage("ignoreQuotedLines");
-    document.getElementById('dictionaryDesc').textContent = chrome.i18n.getMessage("dictionaryDesc");
     Tools.getStorage().get({
-        apiServerUrl: defaultServerUrl,
-        ignoreQuotedLines: true,
-        dictionary: []
+        apiServerUrl: defaultServerUrl
     }, function(items) {
         document.getElementById('apiServerUrl').value = items.apiServerUrl;
-        document.getElementById('ignoreQuotedLines').checked = items.ignoreQuotedLines;
-        let dict = items.dictionary.sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()));
-        document.getElementById('dictionary').value = dict.join("\n") + "\n";
         showPrivacyLink();
     });
 }
