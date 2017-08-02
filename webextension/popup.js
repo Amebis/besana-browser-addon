@@ -256,11 +256,7 @@ function renderMatchesToHtml(resultJson, response, tabs, callback) {
             }
         }
         html += "<p id='reviewRequest'></p>";
-        if (serverUrl === defaultServerUrl) {
-            html += "<p class='poweredBy'>" + chrome.i18n.getMessage("textCheckedRemotely", "https://languagetool.org") + "</p>";
-        } else {
-            html += "<p class='poweredBy'>" + chrome.i18n.getMessage("textCheckedBy", DOMPurify.sanitize(serverUrl)) + "</p>";
-        }
+        html += "<p class='poweredBy'>" + chrome.i18n.getMessage("textCheckedBy", DOMPurify.sanitize(serverUrl)) + "</p>";
         if (testMode) {
             html += "*** running in test mode ***";
         }
