@@ -18,7 +18,7 @@
  */
 "use strict";
 
-let defaultServerUrl = 'https://languagetool.org/api/v2';   // keep in sync with defaultServerUrl in options.js
+let defaultServerUrl = 'http://localhost:225/api/v2';   // keep in sync with defaultServerUrl in options.js
 
 // chrome.google.com: see http://stackoverflow.com/questions/11613371/
 // docs.google.com: Google Docs has a too complicated DOM (but its own add-on framework)
