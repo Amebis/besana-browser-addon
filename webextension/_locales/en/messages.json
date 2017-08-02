@@ -47,7 +47,7 @@
     }
   },
   "tooltip": {
-    "message": "Check the current selection\nor editable field with LanguageTool",
+    "message": "Check the current selection\nor editable field with Amebis Besana",
     "description": "Tooltip shown when hovering over the extension icon."
   },
   "placeCursor1": {

@@ -485,7 +485,7 @@
   },
   "tooltip": {
     "description": "Tooltip shown when hovering over the extension icon.",
-    "message": "Preveri trenutni izbor\nali polje urejanja z LanguageTool"
+    "message": "Preveri trenutni izbor\nali polje urejanja z Amebis Besana"
   },
   "turnOffRule": {
     "description": "Link shown in the popup to turn off, i.e. ignore, a rule (the rule - not just this match)",
