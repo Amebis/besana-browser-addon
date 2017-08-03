@@ -37,11 +37,6 @@ let minUsageForReviewRequest = 30;
 
 var testMode = false;
 var serverUrl = defaultServerUrl;
-var ignoreQuotedLines = true;
-var quotedLinesIgnored = false;
-var motherTongue = "";
-var preferredVariants = [];
-var manuallySelectedLanguage = "";
 
 function getCheckResult(markupList, callback, errorCallback) {
     let req = new XMLHttpRequest();
@@ -67,15 +62,6 @@ function getCheckResult(markupList, callback, errorCallback) {
         errorCallback(chrome.i18n.getMessage("timeoutError", serverUrl), "timeoutError");
     };
     let text = Markup.markupList2text(markupList);
-    if (ignoreQuotedLines) {
-        let textOrig = text;
-        // A hack so the following replacements don't happen on messed up character positions.
-        // See https://github.com/languagetool-org/languagetool-browser-addon/issues/25:
-        text = text.replace(/^>.*?\n/gm, function(match) {
-            return " ".repeat(match.length - 1) + "\n";
-        });
-        quotedLinesIgnored = text != textOrig;
-    }
     var userAgent = "webextension";
     if (Tools.isFirefox()) {
         userAgent += "-firefox";
@@ -84,20 +70,10 @@ function getCheckResult(markupList, callback, errorCallback) {
     } else {
         userAgent += "-unknown";
     }
+
     var params = 'disabledRules=WHITESPACE_RULE' +   // needed because we might replace quoted text by spaces (see issue #25) 
                  '&useragent=' + userAgent + '&text=' + encodeURIComponent(text);
-    if (motherTongue) {
-        params += "&motherTongue=" + motherTongue;
-    }
-    if (manuallySelectedLanguage) {
-        params += "&language=" + manuallySelectedLanguage;
-        manuallySelectedLanguage = "";
-    } else {
-        params += "&language=auto";
-        if (preferredVariants.length > 0) {
-            params += "&preferredVariants=" + preferredVariants;
-        }
-    }
+    params += "&language=sl";
     req.send(params);
 }
 
@@ -231,9 +207,6 @@ function renderMatchesToHtml(resultJson, response, tabs, callback) {
         }
         if (matchesCount == 0) {
             html += "<p>" + chrome.i18n.getMessage("noErrorsFound") + "</p>";
-        }
-        if (quotedLinesIgnored) {
-            html += "<p class='quotedLinesIgnored'>" + chrome.i18n.getMessage("quotedLinesIgnored") + "</p>";
         }
         if (items.ignoredRules && items.ignoredRules.length > 0) {
             let ruleItems = [];
@@ -415,7 +388,7 @@ function addListenerActions(elements, tabs, response) {
                     ignoredRules.push({
                         id: link.getAttribute('data-ruleIdOff'),
                         description: link.getAttribute('data-ruleDescription'),
-                        language: getShortCode(document.getElementById("language").value)
+                        language: "sl"
                     });
                     storage.set({'ignoredRules': ignoredRules}, function() { reCheck(tabs) });
                 });
@@ -479,12 +452,6 @@ function handleCheckResult(response, tabs, callback) {
 function startCheckMaybeWithWarning(tabs) {
     Tools.getStorage().get({
             apiServerUrl: serverUrl,
-            ignoreQuotedLines: ignoreQuotedLines,
-            motherTongue: motherTongue,
-            enVariant: "en-US",
-            deVariant: "de-DE",
-            ptVariant: "pt-PT",
-            caVariant: "ca-ES",
             allowRemoteCheck: false,
             usageCounter: 0
         }, function(items) {
@@ -496,20 +463,6 @@ function startCheckMaybeWithWarning(tabs) {
                 //console.log("Replacing old serverUrl " + serverUrl + " with " + defaultServerUrl);
                 // -> http://stackoverflow.com/questions/12229544/what-can-cause-a-chrome-browser-extension-to-crash
                 serverUrl = defaultServerUrl;
-            }
-            ignoreQuotedLines = items.ignoreQuotedLines;
-            motherTongue = items.motherTongue;
-            if (items.enVariant) {
-                preferredVariants.push(items.enVariant);
-            }
-            if (items.deVariant) {
-                preferredVariants.push(items.deVariant);
-            }
-            if (items.ptVariant) {
-                preferredVariants.push(items.ptVariant);
-            }
-            if (items.caVariant) {
-                preferredVariants.push(items.caVariant);
             }
             if (items.allowRemoteCheck === true) {
                 doCheck(tabs);
