@@ -25,8 +25,6 @@ let defaultServerUrl = 'http://localhost:225/api/v2';   // keep in sync with def
 // addons.mozilla.org: see http://stackoverflow.com/questions/42147966/
 let unsupportedSitesRegex = /^https?:\/\/(docs.google.com|chrome.google.com|addons.mozilla.org).*/;
 
-let googleDocsExtension = "https://chrome.google.com/webstore/detail/languagetool/kjcoklfhicmkbfifghaecedbohbmofkm";
-
 // see https://github.com/languagetool-org/languagetool-browser-addon/issues/70:
 let unsupportedReplacementSitesRegex = /^https?:\/\/(www\.)?(facebook|medium).com.*/;
 
@@ -436,7 +434,7 @@ function doCheck(tabs) {
         return;
     } else if (url.match(unsupportedSitesRegex)) {
         if (url.match(/docs\.google\.com/)) {
-            renderStatus(chrome.i18n.getMessage("googleDocsNotSupported", googleDocsExtension));
+            renderStatus(chrome.i18n.getMessage("googleDocsNotSupported"));
             Tools.logOnServer("link to google docs extension");
             return;
         } else {

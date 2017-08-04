@@ -209,13 +209,7 @@
   },
   "googleDocsNotSupported": {
     "description": "Google Docs is too complex to be supported, so we show this error",
-    "message": "Žal ta razširitev ne podpira spletišča Google Docs. Namesto tega namestite <a target='_blank' href='$url$'>to razširitev</a>, ki je optimizirana za Google Docs.",
-    "placeholders": {
-      "url": {
-        "content": "$1",
-        "example": "https://chrome.google.com/webstore/detail/languagetool/kjcoklfhicmkbfifghaecedbohbmofkm"
-      }
-    }
+    "message": "Žal ta razširitev ne podpira spletišča Google Docs."
   },
   "ignoreQuotedLines": {
     "description": "Options dialog: checkbox to exclude quoted text from checking",
