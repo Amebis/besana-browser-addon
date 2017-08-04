@@ -409,7 +409,6 @@ function handleCheckResult(response, tabs, callback) {
         renderStatus(Tools.escapeHtml(DOMPurify.sanitize(response.message)));
         return;
     }
-    track(response.url);
     getCheckResult(response.markupList, function(resultText) {
         renderMatchesToHtml(resultText, response, tabs, callback);
     }, function(errorMessage, errorMessageCode) {
@@ -490,26 +489,6 @@ function doCheck(tabs) {
             lastCheck: new Date().getTime()
         }, function() {});
     });
-}
-
-function track(pageUrl) {
-    try {
-        let shortenedUrl = pageUrl.replace(/\?.*/, "<replaced>");  // for privacy reasons, don't log URL parameters
-        let url = encodeURIComponent(shortenedUrl);
-        let trackingUrl = "https://openthesaurus.stats.mysnip-hosting.de/piwik.php?idsite=12&rec=1&url=" +
-            url + "&action_name=check_text&rand=" + Date.now() + "&apiv=1";
-        let trackReq = new XMLHttpRequest();
-        trackReq.open('POST', trackingUrl);
-        trackReq.onerror = function() {
-            console.log("LT add-on tracking failed");
-        };
-        trackReq.ontimeout = function() {
-            console.log("LT add-on tracking failed with timeout");
-        };
-        trackReq.send();
-    } catch(e) {
-        console.log("LT add-on tracking failed: ", e);
-    }
 }
 
 document.addEventListener('DOMContentLoaded', function() {
