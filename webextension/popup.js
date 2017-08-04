@@ -25,8 +25,6 @@ let defaultServerUrl = 'http://localhost:225/api/v2';   // keep in sync with def
 // addons.mozilla.org: see http://stackoverflow.com/questions/42147966/
 let unsupportedSitesRegex = /^https?:\/\/(docs.google.com|chrome.google.com|addons.mozilla.org).*/;
 
-let thisExtensionUrl = "https://chrome.google.com/webstore/detail/languagetool/oldceeleldhonbafppcapldpdifcinji";
-
 let googleDocsExtension = "https://chrome.google.com/webstore/detail/languagetool/kjcoklfhicmkbfifghaecedbohbmofkm";
 
 // see https://github.com/languagetool-org/languagetool-browser-addon/issues/70:
@@ -235,9 +233,6 @@ function renderMatchesToHtml(resultJson, response, tabs, callback) {
         }
         renderStatus(html);
         setHintListener();
-        if (matchesCount > 0) {
-            fillReviewRequest(matchesCount);
-        }
         addLinkListeners(response, tabs);
         if (callback) {
             callback(response.markupList);
@@ -258,29 +253,6 @@ function setHintListener() {
             });
         });
     }
-}
-
-function fillReviewRequest() {
-    let storage = Tools.getStorage();
-    storage.get({
-        usageCounter: 0,
-        reviewRequestLinkClicked: false
-    }, function(items) {
-        //console.log("usageCounter: " + items.usageCounter + ", reviewRequestLinkClicked: " + items.reviewRequestLinkClicked);
-        if (! items.reviewRequestLinkClicked && items.usageCounter >= minUsageForReviewRequest) {
-            if (Tools.isChrome()) {
-                var reviewRequestId = document.getElementById("reviewRequest");
-                reviewRequestId.innerHTML = chrome.i18n.getMessage("reviewRequest", thisExtensionUrl + "/reviews");
-                reviewRequestId.addEventListener("click", function() {
-                    storage.set({
-                        reviewRequestLinkClicked: true
-                    }, function () {});
-                });
-            } else if (Tools.isFirefox()) {
-                // TODO: activate
-            }
-        }
-    });
 }
 
 function showShortcutHint(commands) {
