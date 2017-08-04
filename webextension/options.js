@@ -43,14 +43,12 @@ function restoreOptions() {
         apiServerUrl: defaultServerUrl
     }, function(items) {
         document.getElementById('apiServerUrl').value = items.apiServerUrl;
-        showPrivacyLink();
     });
 }
 
 function useDefaultServer() {
     document.getElementById('apiServerUrl').value = defaultServerUrl;
     document.getElementById('status').textContent = "";
-    showPrivacyLink();
 }
 
 document.addEventListener('DOMContentLoaded', restoreOptions);
@@ -58,11 +56,3 @@ document.getElementById('save').addEventListener('click', saveOptions);
 document.getElementById('defaultServerLink').addEventListener('click', useDefaultServer);
 document.getElementById('apiServerUrl').addEventListener('change', showPrivacyLink);
 document.getElementById('apiServerUrl').addEventListener('keyup', showPrivacyLink);
-
-function showPrivacyLink() {
-    if (document.getElementById('apiServerUrl').value == defaultServerUrl) {
-        document.getElementById('privacyPolicy').innerHTML = "<a href='https://www.amebis.si/datoteke/SplosniPogoji_Narocnina_3.1-sl.pdf'>Privacy Policy</a>";
-    } else {
-        document.getElementById('privacyPolicy').innerHTML = "";
-    }
-}
