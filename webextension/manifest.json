@@ -51,7 +51,7 @@
   },
   "applications": {
     "gecko": {
-      "id": "languagetool-webextension@languagetool.org"
+      "id": "besana-webextension@amebis.si"
     }
   }
 }
