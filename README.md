@@ -18,3 +18,5 @@ All the changes are also described in commit messages.
 
 ## License
 Lesser General Public License 2.1 or later, see file [COPYING](COPYING).
+
+#
